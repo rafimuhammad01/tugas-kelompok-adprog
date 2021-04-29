@@ -46,18 +46,48 @@ class TugasServiceImplTest {
 
     @Test
     void TestCreateTugas() {
-        
+        lenient().when(tugasService.createTugas(tugas)).thenReturn(tugas);
+        Tugas resultTugas = tugasService.createTugas(tugas);
+        Assertions.assertEquals(tugas.getId(), resultTugas.getId());
     }
 
     @Test
     void TestGetTugas() {
+        lenient().when(tugasService.getTugas(tugas.getId())).thenReturn(tugas);
+        Tugas resultTugas = tugasService.getTugas(tugas.getId());
+        Assertions.assertEquals(tugas.getId(), resultTugas.getId());
     }
 
     @Test
     void TestUpdateTugas() {
+        tugasService.createTugas(tugas);
+        String judul = "Lab10";
+        Timestamp deadline = Timestamp.valueOf("2021-09-26 21:00:00");
+        String deskripsi = "have descript";
+        String link = "havelink.com";
+
+        tugas.setJudul(judul);
+        tugas.setDeskripsi(deskripsi);
+        tugas.setDeadline(deadline);
+        tugas.setLink(link);
+
+        Tugas expectedTugas = tugas;
+        expectedTugas.setJudul(judul);
+        expectedTugas.setDeskripsi(deskripsi);
+        expectedTugas.setDeadline(deadline);
+        expectedTugas.setLink(link);
+
+        Tugas resultTugas = tugasService.updateTugas(tugas.getId(), tugas);
+        Assertions.assertEquals(expectedTugas.getJudul(), resultTugas.getJudul());
+        Assertions.assertEquals(expectedTugas.getDeadline(), resultTugas.getDeadline());
+        Assertions.assertEquals(expectedTugas.getDeskripsi(), resultTugas.getDeskripsi());
+        Assertions.assertEquals(expectedTugas.getLink(), resultTugas.getLink());
     }
 
     @Test
     void TestdeleteTugas() {
+        tugasService.createTugas(tugas);
+        tugasService.deleteTugas(tugas.getId());
+        Assertions.assertEquals(null, tugasService.getTugas(tugas.getId()));
     }
 }
