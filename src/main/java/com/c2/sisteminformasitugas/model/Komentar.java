@@ -26,4 +26,9 @@ public class Komentar {
     private User user;
     private Tugas tugas;
      */
+
+    public Komentar(int id, String comment) {
+        this.id = id;
+        this.comment = comment;
+    }
 }
