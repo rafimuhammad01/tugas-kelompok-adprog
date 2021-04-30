@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path= "/todolist")
 public class ToDoListController {
-    
+
     @Autowired
     private ToDoListService todolistService;
 
