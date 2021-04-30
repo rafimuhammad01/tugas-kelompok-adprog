@@ -159,3 +159,5 @@ hs_err_pid*
 # Env
 src/main/resources/application-local.properties
 
+
+**/.DS_Store
