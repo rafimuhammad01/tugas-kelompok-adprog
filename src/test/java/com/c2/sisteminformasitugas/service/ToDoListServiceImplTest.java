@@ -50,14 +50,14 @@ class TugasServiceImplTest {
     }
 
     @Test
-    void TestGetTugas() {
+    void TestGetToDoList() {
         lenient().when(todolistService.getToDoList(todolist.getId())).thenReturn(todolist);
         ToDoList resultTugas = todolistService.getToDoList(todolist.getId());
         Assertions.assertEquals(todolist.getId(), resultTugas.getId());
     }
 
     @Test
-    void TestUpdateTugas() {
+    void TestUpdateToDoList() {
         todolistService.createToDoList(todolist);
         String judul = "Lab10";
         Timestamp deadline = Timestamp.valueOf("2021-09-26 21:00:00");
