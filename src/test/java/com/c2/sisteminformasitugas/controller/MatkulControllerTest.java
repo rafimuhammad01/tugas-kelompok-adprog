@@ -1,4 +1,4 @@
-package com.c2.sisteminformasitugas;
+package com.c2.sisteminformasitugas.controller;
 
 import com.c2.sisteminformasitugas.controller.MatkulController;
 import com.c2.sisteminformasitugas.model.Matkul;

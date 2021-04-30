@@ -1,4 +1,4 @@
-package com.c2.sisteminformasitugas;
+package com.c2.sisteminformasitugas.service;
 
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
