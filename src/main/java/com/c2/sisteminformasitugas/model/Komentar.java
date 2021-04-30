@@ -19,6 +19,7 @@ public class Komentar {
     @Column(name="comment")
     private String comment;
 
+
     /*
     //TODO : Relation with User (Many to One) and Tugas (Many to One)
 
