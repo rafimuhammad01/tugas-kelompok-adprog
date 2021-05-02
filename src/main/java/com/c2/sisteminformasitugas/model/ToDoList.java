@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 
 @Entity
-@Table(name = "todolist")
+@Table(name = "todolist", schema = "")
 @Data
 @NoArgsConstructor
 public class ToDoList {

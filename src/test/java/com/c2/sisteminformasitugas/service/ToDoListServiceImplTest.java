@@ -16,7 +16,7 @@ import static org.mockito.Mockito.lenient;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class TugasServiceImplTest {
+class ToDoListServiceImplTest {
     @Mock
     private ToDoListRepository todolistRepository;
 
@@ -29,13 +29,13 @@ class TugasServiceImplTest {
     public void setUp() {
         todolist = new ToDoList();
         todolist.setId(20);
-        todolist.setJudul("Lab01");
-        todolist.setDeadline(Timestamp.valueOf("2021-09-26 09:00:00"));
+        todolist.setJudul("Tutorial6");
+        todolist.setDeadline(Timestamp.valueOf("2021-04-26 09:00:00"));
     }
 
 
     @Test
-    void TestGetListtoDOlist() {
+    void TestGetListtoDolist() {
         Iterable<ToDoList> listToDoList = todolistRepository.findAll();
         lenient().when(todolistService.getListToDoList()).thenReturn(listToDoList);
         Iterable<ToDoList> listToDoListResult = todolistService.getListToDoList();
@@ -59,10 +59,10 @@ class TugasServiceImplTest {
     @Test
     void TestUpdateToDoList() {
         todolistService.createToDoList(todolist);
-        String judul = "Lab10";
-        Timestamp deadline = Timestamp.valueOf("2021-09-26 21:00:00");
-        String deskripsi = "have descript";
-        String link = "havelink.com";
+        String judul = "tutorial8";
+        Timestamp deadline = Timestamp.valueOf("2021-04-26 21:00:00");
+        String deskripsi = "DESC";
+        String link = "link.com";
 
         todolist.setJudul(judul);
         todolist.setDeadline(deadline);

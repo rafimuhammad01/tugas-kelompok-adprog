@@ -29,7 +29,9 @@ public class ToDoListServiceImpl implements ToDoListService{
 
     @Override
     public ToDoList updateToDoList(int id, ToDoList todolist){
-        todolist.setId(id);
+        ToDoList currentToDoList = this.getToDoList(id);
+        todolist.setJudul(currentToDoList.getJudul());
+        todolist.setDeadline(currentToDoList.getDeadline());
         todolistRepository.save(todolist);
         return todolist;
     }
