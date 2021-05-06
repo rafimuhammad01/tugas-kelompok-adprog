@@ -23,11 +23,17 @@ stages:
 
 Build:
   stage: build
+  only:
+    - master
+    - staging
   script:
     - gradle build --stacktrace --info
 
 Test:
   stage: test
+  only:
+    - master
+    - staging
   script:
     - gradle test
     - gradle check --stacktrace --info
@@ -39,7 +45,6 @@ Production:
   stage: deploy
   only:
     - master
-    - feature/implement-gitlab-pipeline-for-deployment-to-heroku
   before_script:
     - gem install dpl
     - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
