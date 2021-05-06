@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "tugas")
@@ -31,5 +32,8 @@ public class Tugas {
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
 
-    //TODO: Make Relations with MATA_KULIAH as Many to One
+    //Relationships One to Many (Komentar), Many to One (Matkul)
+    @OneToMany(mappedBy = "komentar")
+    private List<Komentar> komentar;
+
 }

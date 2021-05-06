@@ -2,7 +2,11 @@ package com.c2.sisteminformasitugas.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "matkul")
@@ -16,7 +20,14 @@ public class Matkul {
     @Column(name = "nama")
     private String nama;
 
-    //OneToMany matkul-tugas
+    //Relationships One to Many (Tugas)
+    @OneToMany(mappedBy = "tugas")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Tugas> tugas;
+
+    //Relationships One to Many (Subscriber)
+    @OneToMany(mappedBy = "subscriber")
+    private List<User> subscriber;
 
     public Matkul(String kodeMatkul, String nama) {
         this.kodeMatkul = kodeMatkul;

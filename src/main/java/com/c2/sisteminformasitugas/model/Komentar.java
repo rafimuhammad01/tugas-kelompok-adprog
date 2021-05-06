@@ -22,10 +22,13 @@ public class Komentar {
 
     /*
     //TODO : Relation with User (Many to One) and Tugas (Many to One)
-
     private User user;
     private Tugas tugas;
      */
+    @ManyToOne
+    @JoinColumn(name = "author")
+    private User author;
+
 
     public Komentar(int id, String comment) {
         this.id = id;

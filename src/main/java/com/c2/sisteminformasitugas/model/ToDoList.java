@@ -3,6 +3,8 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -24,4 +26,14 @@ public class ToDoList {
 
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
+
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private User user;
+
+    @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "idTugas")
+    private Tugas tugas;
+    
 }
