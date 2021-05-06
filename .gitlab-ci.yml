@@ -44,7 +44,7 @@ Test:
   artifacts:
     when: always
     paths:
-      - build/reports/jacoco/test/html/*
+      - build/reports/tests/*
     expire_in: 1 week
 
 Deployment:
