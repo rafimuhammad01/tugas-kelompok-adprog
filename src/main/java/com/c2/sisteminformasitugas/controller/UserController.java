@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
@@ -19,7 +21,7 @@ public class UserController {
 
     @PostMapping(path = "/signup", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity postMahasiswa(@RequestBody User user, HttpServletResponse response) {
+    public ResponseEntity signUp(@RequestBody User user, HttpServletResponse response) {
         try {
             return ResponseEntity.ok(userService.createUser(user));
         } catch (Exception e) {
@@ -29,5 +31,12 @@ public class UserController {
                             "User with current email has been registered, please login",
                             e));
         }
+    }
+
+    @GetMapping(path = "/", produces = {"application/json"})
+    @ResponseBody
+    public ResponseEntity<User> getUser(HttpServletRequest request, HttpServletResponse response) {
+        User user = userService.convertTokenToUser(request);
+        return ResponseEntity.ok(user);
     }
 }
