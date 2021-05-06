@@ -19,6 +19,7 @@ public class MatkulServiceImp implements MatkulService {
 
     @Override
     public Matkul createMatkul(Matkul matkul) {
+        System.out.println("Matkul service : \n" + matkul);
         matkulRepository.save(matkul);
         return  matkul;
     }

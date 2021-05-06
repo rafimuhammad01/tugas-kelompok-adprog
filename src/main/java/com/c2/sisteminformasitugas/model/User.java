@@ -29,10 +29,6 @@ public class User {
     private boolean isAdmin;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "matkul",
-            joinColumns = @JoinColumn(name = "npm"),
-            inverseJoinColumns = @JoinColumn(name = "kodeMatkul")
-    )
+    @JoinTable(name = "matkul_id")
     private List<Matkul> matkulList;
 }

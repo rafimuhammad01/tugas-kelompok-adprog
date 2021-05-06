@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Matkul {
     @Id
-    @Column(name = "kodeMatkul", updatable = false)
+    @Column(name = "kodeMatkul", updatable = false,  nullable = false)
     private String kodeMatkul;
 
     @Column(name = "nama")

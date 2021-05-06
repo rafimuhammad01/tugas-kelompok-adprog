@@ -29,6 +29,7 @@ public class MatkulController {
     @PostMapping(produces = {"application/json"})
     @ResponseBody
     public ResponseEntity createMatkul(@RequestBody Matkul matkul) {
+        System.out.println("Matkul controller : \n" + matkul);
         return ResponseEntity.ok(matkulService.createMatkul(matkul));
     }
 

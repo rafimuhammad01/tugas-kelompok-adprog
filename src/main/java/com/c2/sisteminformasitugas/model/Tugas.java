@@ -34,9 +34,8 @@ public class Tugas {
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
 
-    @ManyToOne
-    @JoinColumn(name = "kodeMatkul")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "matkul_id")
     private Matkul matkul;
 
     //Relationships One to Many (Komentar), Many to One (Matkul)

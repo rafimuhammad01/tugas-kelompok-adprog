@@ -32,8 +32,7 @@ public class Komentar {
     @JoinColumn(name = "author", nullable = false)
     private User author;
 
-    @ManyToOne
-    @JoinColumn(name = "idTugas", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tugas_id", nullable = false)
     private Tugas tugas;
 }

@@ -29,12 +29,11 @@ public class ToDoList {
     private Timestamp deadline;
 
     @ManyToOne
-    @JoinColumn(name = "npm")
+    @JoinColumn(name = "user_npm")
     private User user;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "idTugas")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tugas_id")
     private Tugas tugas;
     
 }
