@@ -1,18 +1,15 @@
 image: gradle:6.8.3-jdk11
 
-services:
-  - "postgres:latest"
-
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-  POSTGRES_DB: test
-  POSTGRES_HOST: postgres
-  POSTGRES_PORT: 5432
-  POSTGRES_USER: postgre
-  POSTGRES_PASSWORD: postgresql
 
 before_script:
+  - echo "Starting..."
+  - echo `pwd`
   - export GRADLE_USER_HOME=`pwd`/.gradle
+  # Remove caches
+  - rm -f  .gradle/caches/modules-2/modules-2.lock
+  - rm -fr .gradle/caches/*/plugin-resolution/
 
 stages:
   - build
@@ -22,8 +19,7 @@ stages:
 Build:
   stage: build
   script:
-    - gradle build --stacktrace --info
-
+    - gradle build
 
 Test:
   stage: test
@@ -45,6 +41,7 @@ deployment:
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
     - export HEROKU_API_KEY=$HEROKU_API_KEY
+    - heroku run --app $HEROKU_APPNAME migrate
   environment:
     name: production
     url: https://$HEROKU_APP_NAME.herokuapp.com
