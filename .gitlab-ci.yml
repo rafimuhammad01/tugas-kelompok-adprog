@@ -1,0 +1,60 @@
+image: gradle:6.3.0-jdk11
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - echo "Starting.."
+  - echo `pwd`
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  # Remove caches
+  - rm -f  .gradle/caches/modules-2/modules-2.lock
+  - rm -fr .gradle/caches/*/plugin-resolution/
+
+stages:
+  - build
+  - test
+  - deploy
+
+#cache:
+#  paths:
+#    - .gradle/wrapper
+#    - .gradle/caches
+
+Build:
+  stage: build
+  only:
+    - master
+    - staging
+  script:
+    - gradle build --stacktrace --info
+
+Test:
+  stage: test
+  only:
+    - master
+    - staging
+  script:
+    - gradle test
+    - gradle check --stacktrace --info
+    - gradle jacocoTestReport
+    - cat build/reports/jacoco/test/html/index.html
+
+Production:
+  image: ruby:2.4
+  stage: deploy
+  only:
+    - master
+  before_script:
+    - gem install dpl
+    - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APPNAME --api-key=$HEROKU_APIKEY
+    - export HEROKU_API_KEY=$HEROKU_APIKEY
+    - heroku run --app $HEROKU_APPNAME migrate
+  environment:
+    name: production
+    url: $HEROKU_APP_HOST
+
+after_script:
+  - echo "Done"
