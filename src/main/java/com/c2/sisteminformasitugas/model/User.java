@@ -20,7 +20,7 @@ public class User {
     @Column(name = "npm", updatable = false, nullable = false, length = 10)
     private String npm;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
