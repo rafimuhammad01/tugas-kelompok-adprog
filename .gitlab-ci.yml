@@ -1,4 +1,4 @@
-image: gradle:6.1.1-jdk8
+image: gradle:6.3.0-jdk11
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -25,11 +25,6 @@ Build:
   stage: build
   script:
     - gradle build --stacktrace --info
-
-CheckStyle:
-  stage: test
-  script: gradle checkstyleMain
-  allow_failure: true
 
 Test:
   stage: test
