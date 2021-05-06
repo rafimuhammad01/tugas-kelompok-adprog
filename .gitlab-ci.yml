@@ -1,7 +1,15 @@
 image: gradle:6.8.3-jdk11
 
+services:
+  - "postgres:latest"
+
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  POSTGRES_DB: test
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
+  POSTGRES_USER: postgre
+  POSTGRES_PASSWORD: postgresql
 
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -13,41 +21,22 @@ stages:
 
 Build:
   stage: build
-  rules:
-    - if: '$CI_COMMIT_MESSAGE !~ /^[SKIP CI].*$/ && $CI_COMMIT_BRANCH == "master"'
   script:
-    - gradle assemble
-  artifacts:
-    paths:
-      - build/libs/*.jar
-    expire_in: 1 week
+    - gradle build --stacktrace --info
 
 
 Test:
   stage: test
-  image: gradle:6.8.3-jdk11
-  services:
-    - "postgres:latest"
-  variables:
-    DATABASE_URL: jdbc:postgresql://postgres:5432/postgres
-    POSTGRES_USER: postgres
-    POSTGRES_DB: postgres
-    POSTGRES_PASSWORD: postgres
-    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
-    SPRING_DATASOURCE_USERNAME: postgres
-    SPRING_DATASOURCE_PASSWORD: postgres
-  rules:
-    - if: '$CI_COMMIT_MESSAGE !~ /^[SKIP CI].*$/'
   script:
     - gradle test
+    - gradle jacocoTestReport
     - cat build/reports/jacoco/test/html/index.html
   artifacts:
     when: always
     paths:
-      - build/reports/tests/*
-    expire_in: 1 week
+      - ./build/reports/*
 
-Deployment:
+deployment:
   image: ruby:2.4
   stage: deploy
   before_script:
@@ -56,10 +45,9 @@ Deployment:
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
     - export HEROKU_API_KEY=$HEROKU_API_KEY
-    - heroku run --app $HEROKU_APP_NAME migrate
   environment:
     name: production
-    url: $HEROKU_APP_HOST
-  only:
+    url: https://$HEROKU_APP_NAME.herokuapp.com
+  only :
     - master
     - feature/setup-deployment
