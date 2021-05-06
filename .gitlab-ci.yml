@@ -7,17 +7,47 @@ before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 stages:
+  - build
   - test
   - deploy
 
-test:
-  stage: test
+Build:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_MESSAGE !~ /^[SKIP CI].*$/ && $CI_COMMIT_BRANCH == "master"'
   script:
-    - gradle :check
-    - gradle :jacocoTestReport
-    - cat build/reports/jacoco/test/html/index.html
+    - gradle assemble
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
 
-production:
+
+Test:
+  stage: test
+  image: gradle:6.8.3-jdk11
+  services:
+    - "postgres:latest"
+  variables:
+    DATABASE_URL: jdbc:postgresql://postgres:5432/postgres
+    POSTGRES_USER: postgres
+    POSTGRES_DB: postgres
+    POSTGRES_PASSWORD: postgres
+    SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+    SPRING_DATASOURCE_USERNAME: postgres
+    SPRING_DATASOURCE_PASSWORD: postgres
+  rules:
+    - if: '$CI_COMMIT_MESSAGE !~ /^[SKIP CI].*$/'
+  script:
+    - gradle test
+    - cat build/reports/jacoco/test/html/index.html
+  artifacts:
+    when: always
+    paths:
+      - build/reports/jacoco/test/html/*
+    expire_in: 1 week
+
+Deployment:
   image: ruby:2.4
   stage: deploy
   before_script:
@@ -33,9 +63,3 @@ production:
   only:
     - master
     - feature/setup-deployment
-
-cache:
-  key: "$CI_COMMIT_REF_NAME"
-  paths:
-    - $GRADLE_USER_HOME/wrapper
-    - $GRADLE_USER_HOME/caches
