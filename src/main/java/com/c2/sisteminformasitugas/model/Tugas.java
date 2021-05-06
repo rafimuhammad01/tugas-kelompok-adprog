@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "tugas")
@@ -31,5 +34,14 @@ public class Tugas {
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
 
-    //TODO: Make Relations with MATA_KULIAH as Many to One
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "matkul_id")
+    private Matkul matkul;
+
+    //Relationships One to Many (Komentar), Many to One (Matkul)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Komentar> komentar;
+
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private List<ToDoList> toDoLists;
 }
