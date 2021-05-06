@@ -5,10 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "custom_user")
@@ -29,4 +27,12 @@ public class User {
 
     @Column(name = "is_admin")
     private boolean isAdmin;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "matkul",
+            joinColumns = @JoinColumn(name = "npm"),
+            inverseJoinColumns = @JoinColumn(name = "kodeMatkul")
+    )
+    private List<Matkul> matkulList;
 }

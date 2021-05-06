@@ -42,7 +42,7 @@ public class MatkulServiceImp implements MatkulService {
 
     @Override
     public void addSubscriber(String kodeMatkul, User user) {
-        getMatkul(kodeMatkul).getSubscriber().add(user);
+        getMatkul(kodeMatkul).getSubscribers().add(user);
 
     }
 
