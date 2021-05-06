@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "todolist")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class ToDoList {
     @Id
@@ -28,10 +29,10 @@ public class ToDoList {
     private Timestamp deadline;
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "npm")
     private User user;
 
-    @OneToOne
+    @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "idTugas")
     private Tugas tugas;

@@ -21,12 +21,11 @@ public class Matkul {
     private String nama;
 
     //Relationships One to Many (Tugas)
-    @OneToMany(mappedBy = "tugas")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Tugas> tugas;
 
     //Relationships One to Many (Subscriber)
-    @OneToMany(mappedBy = "subscriber")
+    @OneToMany(mappedBy = "npm")
     private List<User> subscriber;
 
     public Matkul(String kodeMatkul, String nama) {

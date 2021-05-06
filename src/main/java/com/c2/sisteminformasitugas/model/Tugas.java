@@ -40,7 +40,9 @@ public class Tugas {
     private Matkul matkul;
 
     //Relationships One to Many (Komentar), Many to One (Matkul)
-    @OneToMany(mappedBy = "komentar")
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Komentar> komentar;
 
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private List<ToDoList> toDoLists;
 }
