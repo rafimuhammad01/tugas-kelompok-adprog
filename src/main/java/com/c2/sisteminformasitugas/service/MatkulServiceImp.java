@@ -51,9 +51,9 @@ public class MatkulServiceImp implements MatkulService {
         matkulRepository.delete(matkul);
     }
 
-    public void createNewTugas(Tugas tugas){
-        tugasService.createTugas(tugas);
+    public Tugas createNewTugas(Tugas tugas){
         this.notifySubscriber(tugas);
+        return tugasService.createTugas(tugas);
     }
 
     public void notifySubscriber(Tugas tugas){
