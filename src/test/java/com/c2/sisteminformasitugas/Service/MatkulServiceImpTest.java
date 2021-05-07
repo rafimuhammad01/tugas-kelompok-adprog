@@ -69,7 +69,7 @@ public class MatkulServiceImpTest {
 //
 //        lenient().when(matkulService.createNewTugas(tugas));
 //        Tugas resultTugas = matkulService.createNewTugas(tugas);
-//        Assertions.assertEquals(tugas.setId(), resultTugas.setId());
+//        Assertions.assertEquals(tugas.getId(), resultTugas.getId());
 //    }
 
     @Test
