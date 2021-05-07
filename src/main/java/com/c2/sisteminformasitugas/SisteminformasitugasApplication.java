@@ -6,6 +6,7 @@ import com.c2.sisteminformasitugas.security.provider.CustomAuthenticationProvide
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -24,6 +25,7 @@ public class SisteminformasitugasApplication {
 	}
 
 	@EnableWebSecurity
+	@ComponentScan({"com.c2.sisteminformasitugas.service"})
 	@Configuration
 	static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
