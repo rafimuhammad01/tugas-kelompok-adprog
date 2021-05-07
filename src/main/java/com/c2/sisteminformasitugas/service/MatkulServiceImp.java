@@ -58,17 +58,17 @@ public class MatkulServiceImp implements MatkulService {
         getMatkul(kodeMatkul).getSubscribers().add(user);
     }
 
-    public void createTugas(Tugas tugas){
-        tugasMatkul = tugasService.createTugas(tugas);
-        notifySubscribers(tugasMatkul);
-    }
+//    public void createTugas(Tugas tugas){
+//        tugasMatkul = tugasService.createTugas(tugas);
+//        notifySubscribers(tugasMatkul);
+//    }
 
 //    public void createTodoList()
 
-    public void notifySubscribers(Tugas tugas) {
-        //Iterate through Users in matkul
+//    public void notifySubscribers(Tugas tugas) {
+//        Iterate through Users in matkul
 //        Matkul matkul = getMatkul(tugas.getMatkul());
-
-    }
+//
+//    }
 
 }
