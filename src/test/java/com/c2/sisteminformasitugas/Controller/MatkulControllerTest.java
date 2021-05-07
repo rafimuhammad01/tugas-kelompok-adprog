@@ -35,7 +35,6 @@ public class MatkulControllerTest {
 //    @BeforeEach
 //    public void setUp() {
 ////        matkul = new Matkul("ADVPROG", "Advanced Programming");
-//        super.setUp();
 //    }
 
     private String mapToJson(Object obj) throws JsonProcessingException {
