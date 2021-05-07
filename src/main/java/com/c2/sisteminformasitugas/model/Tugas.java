@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "tugas")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class Tugas {
     @Id
