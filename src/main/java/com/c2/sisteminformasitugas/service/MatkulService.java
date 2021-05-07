@@ -6,7 +6,6 @@ import com.c2.sisteminformasitugas.model.User;
 import java.util.List;
 
 public interface MatkulService {
-    void addSubscriber(String kodeMatkul, User user);
 
     Iterable<Matkul> getListMatkul();
 

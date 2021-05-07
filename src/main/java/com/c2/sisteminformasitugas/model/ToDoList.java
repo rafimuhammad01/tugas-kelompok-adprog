@@ -28,7 +28,7 @@ public class ToDoList {
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_npm")
     private User user;
 
@@ -36,6 +36,5 @@ public class ToDoList {
     @JoinColumn(name = "tugas_id")
     private Tugas tugas;
 
-    
 }
 

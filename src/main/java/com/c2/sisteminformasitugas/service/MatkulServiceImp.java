@@ -3,6 +3,8 @@ package com.c2.sisteminformasitugas.service;
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.model.User;
+
+import com.c2.sisteminformasitugas.service.TugasService;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import com.c2.sisteminformasitugas.repository.TugasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +16,11 @@ import java.util.List;
 public class MatkulServiceImp implements MatkulService {
     @Autowired
     private MatkulRepository matkulRepository;
-
-    @Autowired
-    private TugasRepository tugasRepository;
-
     @Autowired
     private TugasService tugasService;
-
     @Autowired
-    private Tugas tugasMatkul;
+    private ToDoListService todolistService;
+
 
     @Override
     public Iterable<Matkul> getListMatkul() {
@@ -53,22 +51,16 @@ public class MatkulServiceImp implements MatkulService {
         matkulRepository.delete(matkul);
     }
 
-    @Override
-    public void addSubscriber(String kodeMatkul, User user) {
-        getMatkul(kodeMatkul).getSubscribers().add(user);
+    public void createNewTugas(Tugas tugas){
+        tugasService.createTugas(tugas);
+        this.notifySubscriber(tugas);
     }
 
-//    public void createTugas(Tugas tugas){
-//        tugasMatkul = tugasService.createTugas(tugas);
-//        notifySubscribers(tugasMatkul);
-//    }
+    public void notifySubscriber(Tugas tugas){
+        Matkul matkul = tugas.getMatkul();
+        for(User eachUser : matkul.getSubscribers()){
+            todolistService.createToDoList(tugas,eachUser);
+        }
 
-//    public void createTodoList()
-
-//    public void notifySubscribers(Tugas tugas) {
-//        Iterate through Users in matkul
-//        Matkul matkul = getMatkul(tugas.getMatkul());
-//
-//    }
-
+    }
 }
