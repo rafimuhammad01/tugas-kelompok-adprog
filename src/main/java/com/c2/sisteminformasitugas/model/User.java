@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Table(name = "custom_user")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
@@ -31,4 +30,11 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "matkul_id")
     private List<Matkul> matkulList;
+
+    public User(String npm, String email, String password, boolean isAdmin) {
+        this.npm = npm;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
 }
