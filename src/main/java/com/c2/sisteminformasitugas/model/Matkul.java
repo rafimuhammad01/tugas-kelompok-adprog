@@ -23,7 +23,7 @@ public class Matkul {
     private String nama;
 
     //Relationships One to Many (Tugas)
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "matkul", cascade = CascadeType.ALL)
     private List<Tugas> tugas;
 
     //Relationships One to Many (Subscriber)

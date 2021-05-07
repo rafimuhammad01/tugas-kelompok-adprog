@@ -30,7 +30,7 @@ public class ToDoList {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_npm")
-    private User user;
+    private User owner;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tugas_id")
