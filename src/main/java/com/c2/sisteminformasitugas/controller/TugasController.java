@@ -27,7 +27,7 @@ public class TugasController {
     @ResponseBody
     public ResponseEntity createTugas(@RequestBody Tugas tugas, @PathVariable(value = "kodeMatkul") String kodeMatkul) {
         tugas.setMatkul(matkulService.getMatkul(kodeMatkul));
-        return ResponseEntity.ok(tugasService.createTugas(tugas));
+        return ResponseEntity.ok(matkulService.createNewTugas(tugas));
     }
 
     @GetMapping(path = "/{kodeTugas}", produces = {"application/json"})
