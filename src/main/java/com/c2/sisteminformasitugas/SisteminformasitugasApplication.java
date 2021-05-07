@@ -24,7 +24,6 @@ public class SisteminformasitugasApplication {
 	}
 
 	@EnableWebSecurity
-
 	@Configuration
 	static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 

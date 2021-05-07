@@ -55,13 +55,13 @@ public class MatkulController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping(path = "/subscribeMatkuls")
-    @ResponseBody
-    public ResponseEntity subscribeMatkuls(@RequestBody String[] matkuls, HttpServletRequest request) {
-        User user = userService.convertTokenToUser(request);
-        for (String kodeMatkul:matkuls) {
-            matkulService.addSubscriber(kodeMatkul, user);
-        }
-        return ResponseEntity.ok().body("SUCCESS");
-    }
+//    @PostMapping(path = "/subscribeMatkuls")
+//    @ResponseBody
+//    public ResponseEntity subscribeMatkuls(@RequestBody String[] matkuls, HttpServletRequest request) {
+//        User user = userService.convertTokenToUser(request);
+//        for (String kodeMatkul:matkuls) {
+//            matkulService.addSubscriber(kodeMatkul, user);
+//        }
+//        return ResponseEntity.ok().body("SUCCESS");
+//    }
 }

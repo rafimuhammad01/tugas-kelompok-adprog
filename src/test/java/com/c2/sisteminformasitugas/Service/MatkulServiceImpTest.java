@@ -1,6 +1,7 @@
 package com.c2.sisteminformasitugas.Service;
 
 import com.c2.sisteminformasitugas.model.Matkul;
+import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import com.c2.sisteminformasitugas.service.MatkulServiceImp;
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.sql.Timestamp;
 
 import static org.mockito.Mockito.*;
 
@@ -22,12 +25,15 @@ public class MatkulServiceImpTest {
     private MatkulServiceImp matkulService;
 
     private Matkul matkul;
+    private Tugas tugas;
 
     @BeforeEach
     public void setUp() {
         matkul = new Matkul();
         matkul.setKodeMatkul("ADVPROG");
         matkul.setNama("Advanced Programming");
+
+
     }
 
     @Test
@@ -51,6 +57,20 @@ public class MatkulServiceImpTest {
         Matkul resultMatkul = matkulService.createMatkul(matkul);
         Assertions.assertEquals(matkul.getKodeMatkul(), resultMatkul.getKodeMatkul());
     }
+
+//    @Test
+//    void testServiceCreateTugas(){
+//        tugas = new Tugas();
+//        tugas.setId(20);
+//        tugas.setJudul("Lab01");
+//        tugas.setDeadline(Timestamp.valueOf("2021-09-26 09:00:00"));
+//        tugas.setDeskripsi("nondescript");
+//        tugas.setLink("nolink.com");
+//
+//        lenient().when(matkulService.createNewTugas(tugas));
+//        Tugas resultTugas = matkulService.createNewTugas(tugas);
+//        Assertions.assertEquals(tugas.setId(), resultTugas.setId());
+//    }
 
     @Test
     void testServiceUpdateMatkul() {
