@@ -35,5 +35,7 @@ public class ToDoList {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tugas_id")
     private Tugas tugas;
+
     
 }
+

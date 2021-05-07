@@ -1,7 +1,6 @@
 HELP.md
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -161,4 +160,8 @@ src/main/resources/application-local.properties
 
 
 **/.DS_Store
+<<<<<<< HEAD
 
+=======
+!gradle/wrapper/gradle-wrapper.jar
+>>>>>>> 1af67890171c5c211bf3930e4873ae1c921a2dd3

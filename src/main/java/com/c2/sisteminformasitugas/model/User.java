@@ -31,4 +31,6 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "matkul_id")
     private List<Matkul> matkulList;
+
 }
+
