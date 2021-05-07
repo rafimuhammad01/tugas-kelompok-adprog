@@ -32,7 +32,7 @@ public class User {
     @JoinTable(name = "matkul_id")
     private List<Matkul> matkulList;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<ToDoList> toDoLists;
 
 }
