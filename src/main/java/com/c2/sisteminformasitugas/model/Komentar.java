@@ -1,5 +1,6 @@
 package com.c2.sisteminformasitugas.model;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,14 @@ public class Komentar {
     private String comment;
 
     @ManyToOne
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "npm")
+    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "author", nullable = false)
     private User author;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "tugas_id", nullable = false)
     private Tugas tugas;
 }
