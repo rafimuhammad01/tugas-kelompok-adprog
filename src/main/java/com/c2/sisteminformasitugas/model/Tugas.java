@@ -35,14 +35,16 @@ public class Tugas {
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
 
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "matkul_id")
+    @JoinColumn(name = "kodeMatkul")
     private Matkul matkul;
+
 
     //Relationships One to Many (Komentar), Many to One (Matkul)
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Komentar> komentar;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tugas", cascade = CascadeType.ALL)
     private List<ToDoList> toDoLists;
 }

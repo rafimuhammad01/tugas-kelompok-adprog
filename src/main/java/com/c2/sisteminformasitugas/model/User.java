@@ -31,6 +31,9 @@ public class User {
     @JoinTable(name = "matkul_id")
     private List<Matkul> matkulList;
 
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<ToDoList> toDoLists;
+
     public User(String npm, String email, String password, boolean isAdmin) {
         this.npm = npm;
         this.email = email;
