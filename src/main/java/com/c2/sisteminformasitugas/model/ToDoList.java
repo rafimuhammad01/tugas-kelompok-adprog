@@ -1,5 +1,5 @@
 package com.c2.sisteminformasitugas.model;
-
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,32 +7,33 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 
 @Entity
-@Table(name="komentar")
+@Table(name = "todolist")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Komentar {
+public class ToDoList {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false)
     private int id;
 
-    @Column(name="comment")
-    private String comment;
+    @Column(name = "judul")
+    private String judul;
 
-    /*
-    //TODO : Relation with User (Many to One) and Tugas (Many to One)
-    private User user;
-    private Tugas tugas;
-     */
+    @Column(name = "deadline", nullable = false)
+    private Timestamp deadline;
+
     @ManyToOne
-    @JoinColumn(name = "author", nullable = false)
-    private User author;
+    @JoinColumn(name = "user_npm")
+    private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tugas_id", nullable = false)
+    @JoinColumn(name = "tugas_id")
     private Tugas tugas;
+    
 }
