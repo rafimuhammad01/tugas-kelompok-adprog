@@ -35,9 +35,11 @@ public class Tugas {
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
 
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "kodeMatkul")
     private Matkul matkul;
+
 
     //Relationships One to Many (Komentar), Many to One (Matkul)
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)

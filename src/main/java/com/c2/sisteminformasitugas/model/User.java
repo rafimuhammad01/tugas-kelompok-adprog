@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Table(name = "custom_user")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
@@ -34,4 +33,11 @@ public class User {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<ToDoList> toDoLists;
+
+    public User(String npm, String email, String password, boolean isAdmin) {
+        this.npm = npm;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
 }
