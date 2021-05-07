@@ -14,12 +14,6 @@ public class ToDoListController {
     @Autowired
     private ToDoListService todolistService;
 
-    @PostMapping(produces = {"application/json"})
-    @ResponseBody
-    public ResponseEntity postToDoList(@RequestBody ToDoList todolist) {
-        return ResponseEntity.ok(todolistService.createToDoList(todolist));
-    }
-
     @GetMapping(produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<Iterable<ToDoList>> getListToDoList() {
