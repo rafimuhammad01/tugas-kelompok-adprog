@@ -23,11 +23,6 @@ public class Komentar {
     @Column(name="comment")
     private String comment;
 
-    /*
-    //TODO : Relation with User (Many to One) and Tugas (Many to One)
-    private User user;
-    private Tugas tugas;
-     */
     @ManyToOne
     @JoinColumn(name = "author", nullable = false)
     private User author;
