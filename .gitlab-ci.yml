@@ -56,8 +56,6 @@ Test:
       - build/reports/jacoco/test/html/*
 
 Deployment:
-  only:
-    - master
   image: ruby:2.4
   stage: deploy
   rules:
