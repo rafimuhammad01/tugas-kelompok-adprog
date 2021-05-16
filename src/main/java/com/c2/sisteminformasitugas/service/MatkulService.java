@@ -10,10 +10,6 @@ public interface MatkulService {
 
     Matkul getMatkul(String kodeMatkul);
 
-    Tugas createNewTugas(Tugas tugas);
-
-    void notifySubscriber(Tugas tugas);
-
     Matkul updateMatkul(String kodeMatkul, Matkul matkul);
 
     void deleteMatkul(String kodeMatkul);

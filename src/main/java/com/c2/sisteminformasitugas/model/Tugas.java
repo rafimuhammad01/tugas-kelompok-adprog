@@ -37,11 +37,13 @@ public class Tugas {
 
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "kodeMatkul")
+    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "kodeMatkul")
     private Matkul matkul;
 
 
     //Relationships One to Many (Komentar), Many to One (Matkul)
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tugas", cascade = CascadeType.ALL)
     private List<Komentar> komentar;
 }
