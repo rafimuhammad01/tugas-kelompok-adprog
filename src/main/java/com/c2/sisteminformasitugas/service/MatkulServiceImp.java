@@ -3,7 +3,6 @@ package com.c2.sisteminformasitugas.service;
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.model.User;
-import com.c2.sisteminformasitugas.service.TugasService;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +13,6 @@ public class MatkulServiceImp implements MatkulService {
     private MatkulRepository matkulRepository;
     @Autowired
     private TugasService tugasService;
-    @Autowired
-    private ToDoListService todolistService;
 
     @Override
     public Iterable<Matkul> getListMatkul() {
@@ -35,6 +32,10 @@ public class MatkulServiceImp implements MatkulService {
 
     @Override
     public Matkul updateMatkul(String kodeMatkul, Matkul matkul) {
+        Matkul matkulFound = matkulRepository.findByKodeMatkul(kodeMatkul);
+        matkul.setKodeMatkul(kodeMatkul);
+        matkul.setTugas(matkulFound.getTugas());
+        matkul.setSubscribers(matkulFound.getSubscribers());
         matkulRepository.save(matkul);
         return matkul;
     }
@@ -43,18 +44,5 @@ public class MatkulServiceImp implements MatkulService {
     public void deleteMatkul(String kodeMatkul) {
         Matkul matkul = this.getMatkul(kodeMatkul);
         matkulRepository.delete(matkul);
-    }
-
-    public Tugas createNewTugas(Tugas tugas){
-        this.notifySubscriber(tugas);
-        return tugasService.createTugas(tugas);
-    }
-
-    public void notifySubscriber(Tugas tugas){
-        Matkul matkul = tugas.getMatkul();
-        for(User eachUser : matkul.getSubscribers()){
-            todolistService.createToDoList(tugas,eachUser);
-        }
-
     }
 }

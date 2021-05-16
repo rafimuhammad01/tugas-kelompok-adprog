@@ -1,5 +1,8 @@
 package com.c2.sisteminformasitugas.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +27,13 @@ public class Matkul {
 
     //Relationships One to Many (Tugas)
     @OneToMany(mappedBy = "matkul", cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Tugas> tugas;
 
     //Relationships One to Many (Subscriber)
     @ManyToMany(mappedBy = "matkulList", cascade = CascadeType.ALL)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "npm")
+    @JsonIdentityReference(alwaysAsId = true)
     private List<User> subscribers;
 }

@@ -3,9 +3,7 @@ package com.c2.sisteminformasitugas.service;
 import com.c2.sisteminformasitugas.model.Tugas;
 
 public interface TugasService {
-    Iterable<Tugas> getListTugas();
-
-    //TODO: Get List Tugas dalam sebuah MATA_Kuliah
+    Iterable<Tugas> getListTugas(String kodeMatkul);
 
     Tugas createTugas(Tugas tugas);
 

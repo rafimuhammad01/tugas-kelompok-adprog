@@ -1,7 +1,9 @@
 package com.c2.sisteminformasitugas.service;
 
 
+import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
+import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import com.c2.sisteminformasitugas.repository.TugasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,13 +12,14 @@ import org.springframework.stereotype.Service;
 public class TugasServiceImpl implements TugasService{
     @Autowired
     private TugasRepository tugasRepository;
+    @Autowired
+    private MatkulRepository matkulRepository;
 
     @Override
-    public Iterable<Tugas> getListTugas() {
-        return tugasRepository.findAll();
+    public Iterable<Tugas> getListTugas(String kodeMatkul) {
+        Matkul matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
+        return tugasRepository.findByMatkul(matkul);
     }
-
-    //TODO: Get List Tugas dalam sebuah MATA_Kuliah
 
     @Override
     public Tugas createTugas(Tugas tugas){
@@ -31,7 +34,10 @@ public class TugasServiceImpl implements TugasService{
 
     @Override
     public Tugas updateTugas(int id, Tugas tugas){
+        Tugas tugasFound = tugasRepository.findById(id);
         tugas.setId(id);
+        tugas.setKomentar(tugasFound.getKomentar());
+        tugas.setMatkul(tugasFound.getMatkul());
         tugasRepository.save(tugas);
         return tugas;
     }

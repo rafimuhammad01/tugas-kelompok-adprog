@@ -17,17 +17,17 @@ public class TugasController {
     @Autowired
     private MatkulService matkulService;
 
-    @GetMapping(produces = {"application/json"})
+    @GetMapping(path = "matkul/{kodeMatkul}", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity<Iterable<Tugas>> getListTugas() {
-        return ResponseEntity.ok(tugasService.getListTugas());
+    public ResponseEntity<Iterable<Tugas>> getListTugas(@PathVariable(value = "kodeMatkul") String kodeMatkul) {
+        return ResponseEntity.ok(tugasService.getListTugas(kodeMatkul));
     }
 
     @PostMapping(path = "/{kodeMatkul}", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity createTugas(@RequestBody Tugas tugas, @PathVariable(value = "kodeMatkul") String kodeMatkul) {
         tugas.setMatkul(matkulService.getMatkul(kodeMatkul));
-        return ResponseEntity.ok(matkulService.createNewTugas(tugas));
+        return ResponseEntity.ok(tugasService.createTugas(tugas));
     }
 
     @GetMapping(path = "/{kodeTugas}", produces = {"application/json"})
@@ -49,6 +49,6 @@ public class TugasController {
     @DeleteMapping(path = "/{kodeTugas}", produces = {"application/json"})
     public ResponseEntity deleteTugas(@PathVariable(value = "kodeTugas") int kodeTugas) {
         tugasService.deleteTugas(kodeTugas);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
