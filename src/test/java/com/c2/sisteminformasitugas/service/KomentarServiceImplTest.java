@@ -76,6 +76,7 @@ class KomentarServiceImplTest {
     @Test
     void testCreateKomentarAfterDeadline() {
         lenient().when(komentarRepository.save(komentar)).thenReturn(komentar);
+        tugas.setDeadline(Timestamp.valueOf("2000-09-01 09:01:15"));
         Komentar komentarResult = komentarServiceImpl.createKomentar(komentar, user, tugas);
         Assertions.assertEquals(null, komentarResult);
     }
