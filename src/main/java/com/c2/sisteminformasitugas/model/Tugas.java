@@ -44,7 +44,4 @@ public class Tugas {
     //Relationships One to Many (Komentar), Many to One (Matkul)
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private List<Komentar> komentar;
-
-    @OneToMany(mappedBy = "tugas", cascade = CascadeType.ALL)
-    private List<ToDoList> toDoLists;
 }
