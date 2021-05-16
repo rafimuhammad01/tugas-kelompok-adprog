@@ -1,10 +1,22 @@
 image: gradle:6.3.0-jdk11
 
+services:
+  - postgres:latest
+
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+  GIT_DEPTH: "0"
+  DATABASE_URL: jdbc:postgresql://postgres:5432/postgres
+  POSTGRES_USER: postgres
+  POSTGRES_DB: postgres
+  POSTGRES_PASSWORD: postgres
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+  SPRING_DATASOURCE_USER: postgres
+  SPRING_DATASOURCE_PASSWORD: postgres
 
 before_script:
-  - echo "Starting.."
+  - echo "Starting..."
   - echo `pwd`
   - export GRADLE_USER_HOME=`pwd`/.gradle
   # Remove caches
@@ -16,45 +28,46 @@ stages:
   - test
   - deploy
 
-#cache:
-#  paths:
-#    - .gradle/wrapper
-#    - .gradle/caches
-
 Build:
   stage: build
-  only:
-    - master
-    - staging
   script:
-    - gradle build --stacktrace --info
+    - gradle build
 
 Test:
   stage: test
+  image: gradle:6.3.0-jdk11
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - gradle :check
+    - gradle :jacocoTestReport
+    - gradle sonarqube
+    - cat build/reports/jacoco/test/html/index.html
+    - grep -Eo "Total.*?([0–9]{1,3})%" build/reports/jacoco/test/html/index.html
+  artifacts:
+    when: always
+    paths:
+      - build/reports/jacoco/test/html/*
+
+Deployment:
   only:
     - master
-    - staging
-  script:
-    - gradle test
-    - gradle check --stacktrace --info
-    - gradle jacocoTestReport
-    - cat build/reports/jacoco/test/html/index.html
-
-Production:
   image: ruby:2.4
   stage: deploy
-  only:
-    - master
   before_script:
     - gem install dpl
     - wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
   script:
     - dpl --provider=heroku --app=$HEROKU_APPNAME --api-key=$HEROKU_APIKEY
     - export HEROKU_API_KEY=$HEROKU_APIKEY
+    - heroku config:set --app $HEROKU_APPNAME LINE_CHANNEL_SECRET=$LINE_CHANNEL_SECRET
+    - heroku config:set --app $HEROKU_APPNAME LINE_CHANNEL_ACCESS_TOKEN=$LINE_CHANNEL_ACCESS_TOKEN
     - heroku run --app $HEROKU_APPNAME migrate
   environment:
     name: production
     url: $HEROKU_APP_HOST
 
 after_script:
-  - echo "Done"
+  - echo "Success!"
