@@ -1,11 +1,13 @@
 package com.c2.sisteminformasitugas;
 
+import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import com.c2.sisteminformasitugas.security.filter.JWTAuthenticationFilter;
 import com.c2.sisteminformasitugas.security.filter.JWTAuthorizationFilter;
 import com.c2.sisteminformasitugas.security.provider.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,12 +25,15 @@ public class SisteminformasitugasApplication {
 		SpringApplication.run(SisteminformasitugasApplication.class, args);
 	}
 
+	@ComponentScan("com.c2.sisteminformasitugas.service")
 	@EnableWebSecurity
 	@Configuration
 	static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		@Autowired
 		private CustomAuthenticationProvider authProvider;
+
+
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {

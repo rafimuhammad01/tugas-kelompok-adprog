@@ -5,22 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "custom_user")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
     @Id
     @Column(name = "npm", updatable = false, nullable = false, length = 10)
     private String npm;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -29,4 +26,15 @@ public class User {
 
     @Column(name = "is_admin")
     private boolean isAdmin;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "matkul_id")
+    private List<Matkul> matkulList;
+
+    public User(String npm, String email, String password, boolean isAdmin) {
+        this.npm = npm;
+        this.email = email;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
 }
