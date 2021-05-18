@@ -20,6 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import static org.mockito.Mockito.when;
@@ -114,6 +115,19 @@ public class MatkulControllerTest {
                 .header("Authorization", "Bearer " +  getJWTToken())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testControllerGetListMatkul() throws Exception {
+        Iterable<Matkul> listMatkul = Arrays.asList(matkul);
+        when(matkulService.getMatkul(matkul.getKodeMatkul())).thenReturn(matkul);
+        when(matkulService.getListMatkul()).thenReturn(listMatkul);
+        when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
+
+        mvc.perform(get("/matkul")
+                .header("Authorization", "Bearer " +  getJWTToken())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
