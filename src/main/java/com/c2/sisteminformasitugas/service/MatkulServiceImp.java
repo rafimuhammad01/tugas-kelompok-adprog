@@ -1,11 +1,15 @@
 package com.c2.sisteminformasitugas.service;
 
+import com.c2.sisteminformasitugas.model.DTO.ListKodeMatkulDTO;
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.model.User;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
+import com.c2.sisteminformasitugas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MatkulServiceImp implements MatkulService {
@@ -13,6 +17,8 @@ public class MatkulServiceImp implements MatkulService {
     private MatkulRepository matkulRepository;
     @Autowired
     private TugasService tugasService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Iterable<Matkul> getListMatkul() {
@@ -44,5 +50,35 @@ public class MatkulServiceImp implements MatkulService {
     public void deleteMatkul(String kodeMatkul) {
         Matkul matkul = this.getMatkul(kodeMatkul);
         matkulRepository.delete(matkul);
+    }
+
+    @Override
+    public User subscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
+        List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
+        for (String kodeMatkul:kodeMatkuls) {
+            Matkul matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
+            if (matkul != null && !user.getMatkulList().contains(matkul)) {
+                matkul.getSubscribers().add(user);
+                matkulRepository.save(matkul);
+                user.getMatkulList().add(matkul);
+                userRepository.save(user);
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public User unsubscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
+        List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
+        for (String kodeMatkul:kodeMatkuls) {
+            Matkul matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
+            if (matkul != null && user.getMatkulList().contains(matkul)) {
+                matkul.getSubscribers().remove(user);
+                matkulRepository.save(matkul);
+                user.getMatkulList().remove(matkul);
+                userRepository.save(user);
+            }
+        }
+        return user;
     }
 }
