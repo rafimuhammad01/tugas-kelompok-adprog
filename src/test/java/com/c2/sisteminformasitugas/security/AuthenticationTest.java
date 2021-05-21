@@ -55,7 +55,7 @@ public class AuthenticationTest {
 
     @BeforeEach
     public void setup() throws Exception {
-        user = new User("1906350616", "ganiilhamirsyadi@gmail.com", "password", false);
+        user = new User("1906350616", "ganiilhamirsyadi@gmail.com", "password");
         userToken = new UsernamePasswordAuthenticationToken(user.getEmail(), "password");
     }
 

@@ -9,6 +9,7 @@ import com.c2.sisteminformasitugas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +28,8 @@ public class MatkulServiceImp implements MatkulService {
 
     @Override
     public Matkul createMatkul(Matkul matkul) {
+        matkul.setSubscribers(new ArrayList<>());
+        matkul.setTugas(new ArrayList<>());
         matkulRepository.save(matkul);
         return  matkul;
     }

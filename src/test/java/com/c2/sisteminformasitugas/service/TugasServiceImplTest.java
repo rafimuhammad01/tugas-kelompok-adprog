@@ -17,7 +17,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.lenient;
@@ -59,11 +61,24 @@ public class TugasServiceImplTest {
     @BeforeEach
     public void setUp() {
 
+        List<User> listOfSubscriber = new ArrayList<>();
+
         user = new User();
         user.setNpm("1234");
-        user.setAdmin(false);
         user.setEmail("test@gmail.com");
         user.setPassword("test123");
+
+        listOfSubscriber.add(user);
+
+        matkul = new Matkul();
+        matkul.setKodeMatkul("123");
+        matkul.setNama("Dummy");
+        matkul.setSubscribers(listOfSubscriber);
+
+        user = new User();
+        user.setEmail("dummy@gmail.com");
+        user.setPassword("password123");
+        user.setNpm("1906350788");
 
         tugas = new Tugas();
         tugas.setId(1);
@@ -73,16 +88,6 @@ public class TugasServiceImplTest {
         tugas.setLink("Dummy");
         tugas.setMatkul(matkul);
         tugasRepository.save(tugas);
-
-        matkul = new Matkul();
-        matkul.setKodeMatkul("123");
-        matkul.setNama("Dummy");
-
-        user = new User();
-        user.setAdmin(false);
-        user.setEmail("dummy@gmail.com");
-        user.setPassword("password123");
-        user.setNpm("1906350788");
 
 
         komentar = new Komentar();
@@ -102,7 +107,8 @@ public class TugasServiceImplTest {
     }
 
     @Test
-    void TestCreateTugas() {
+    void TestCreateTugas() throws IOException, InterruptedException {
+        System.out.println(tugas);
         lenient().when(tugasServiceImpl.createTugas(tugas)).thenReturn(tugas);
         Tugas resultTugas = tugasServiceImpl.createTugas(tugas);
         Assertions.assertEquals(tugas.getId(), resultTugas.getId());
@@ -145,11 +151,11 @@ public class TugasServiceImplTest {
     }
 
     @Test
-    void TestdeleteTugas() {
+    void TestdeleteTugas() throws IOException, InterruptedException {
 
         tugasServiceImpl.createTugas(tugas);
         tugasServiceImpl.deleteTugas(tugas.getId());
-        Assertions.assertEquals(null, tugasServiceImpl.getTugas(tugas.getId()));
+        assertNull(tugasServiceImpl.getTugas(tugas.getId()));
     }
 
 }

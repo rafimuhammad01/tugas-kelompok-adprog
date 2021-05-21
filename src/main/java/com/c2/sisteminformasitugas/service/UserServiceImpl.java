@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService {
         User userFound = userRepository.findByEmail(user.getEmail());
         if (userFound != null) throw new Exception();
         user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
-        user.setAdmin(false);
         userRepository.save(user);
         return user;
     }

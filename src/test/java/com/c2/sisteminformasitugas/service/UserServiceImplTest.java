@@ -37,7 +37,7 @@ public class UserServiceImplTest {
 
     @BeforeEach
     public void setUp() {
-        user = new User("1906350616", "ganiilhamirsyadi@gmail.com", "password", false);
+        user = new User("1906350616", "ganiilhamirsyadi@gmail.com", "password");
     }
 
     @Test

@@ -15,7 +15,6 @@ import java.util.List;
 @Entity
 @Table(name = "matkul")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Matkul {
     @Id
