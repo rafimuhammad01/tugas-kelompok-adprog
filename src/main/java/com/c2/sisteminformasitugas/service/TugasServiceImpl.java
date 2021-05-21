@@ -8,6 +8,8 @@ import com.c2.sisteminformasitugas.repository.TugasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class TugasServiceImpl implements TugasService{
     @Autowired
@@ -38,6 +40,7 @@ public class TugasServiceImpl implements TugasService{
         tugas.setId(id);
         tugas.setKomentar(tugasFound.getKomentar());
         tugas.setMatkul(tugasFound.getMatkul());
+        tugas.setKomentar(new ArrayList<>());
         tugasRepository.save(tugas);
         return tugas;
     }

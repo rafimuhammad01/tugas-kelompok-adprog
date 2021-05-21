@@ -147,7 +147,7 @@ public class TugasServiceImplTest {
 
         tugasServiceImpl.createTugas(tugas);
         tugasServiceImpl.deleteTugas(tugas.getId());
-        Assertions.assertEquals(null, tugasServiceImpl.getTugas(tugas.getId()));
+        assertNull(tugasServiceImpl.getTugas(tugas.getId()));
     }
 
 }
