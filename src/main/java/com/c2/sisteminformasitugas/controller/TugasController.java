@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/tugas")
 public class TugasController {
@@ -25,7 +27,7 @@ public class TugasController {
 
     @PostMapping(path = "/{kodeMatkul}", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity createTugas(@RequestBody Tugas tugas, @PathVariable(value = "kodeMatkul") String kodeMatkul) {
+    public ResponseEntity createTugas(@RequestBody Tugas tugas, @PathVariable(value = "kodeMatkul") String kodeMatkul) throws IOException, InterruptedException {
         tugas.setMatkul(matkulService.getMatkul(kodeMatkul));
         return ResponseEntity.ok(tugasService.createTugas(tugas));
     }

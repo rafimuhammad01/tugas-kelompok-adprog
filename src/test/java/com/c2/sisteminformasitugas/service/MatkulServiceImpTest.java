@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,7 +95,7 @@ public class MatkulServiceImpTest {
     }
 
     @Test
-    void testServiceUpdateMatkul() {
+    void testServiceUpdateMatkul() throws IOException, InterruptedException {
         matkulService.createMatkul(matkul);
         lenient().when(matkulService.getMatkul(matkul.getKodeMatkul())).thenReturn(matkul);
         matkul.setNama("Matkul Baru");
