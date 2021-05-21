@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 
 import static org.mockito.Mockito.*;
@@ -72,7 +73,7 @@ public class MatkulServiceImpTest {
     }
 
     @Test
-    void testServiceUpdateMatkul() {
+    void testServiceUpdateMatkul() throws IOException, InterruptedException {
         matkulService.createMatkul(matkul);
         tugasService.createTugas(tugas);
         lenient().when(matkulService.getMatkul(matkul.getKodeMatkul())).thenReturn(matkul);
