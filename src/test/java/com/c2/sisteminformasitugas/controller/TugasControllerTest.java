@@ -134,34 +134,34 @@ public class TugasControllerTest {
                 .andExpect(status().isOk());
     }
 
-//    @Test
-//    void testControllerUpdateMatkul() throws Exception {
-//        matkulService.createMatkul(matkul);
-//
-//        String namaMatkul = "ADV125YIHA";
-//        matkul.setNama(namaMatkul);
-//
-//        when(matkulService.updateMatkul(matkul.getKodeMatkul(), matkul)).thenReturn(matkul);
-//        when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
-//
-//        mvc.perform(put("/matkul/" + matkul.getKodeMatkul())
-//                .header("Authorization", "Bearer " +  getJWTToken())
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(mapToJson(matkul)))
-//                .andExpect(status().isOk()).andExpect(content()
-//                .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.nama").value(namaMatkul));
-//    }
-//
-//    @Test
-//    void testControllerDeleteMatkul() throws Exception {
-//        matkulService.createMatkul(matkul);
-//        when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
-//
-//        mvc.perform(delete("/matkul/" + matkul.getKodeMatkul())
-//                .header("Authorization", "Bearer " +  getJWTToken())
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNoContent());
-//    }
+    @Test
+    void testControllerUpdateMatkul() throws Exception {
+        tugasService.createTugas(tugas);
+
+        String judulTugas = "ADV125YIHA";
+        tugas.setJudul(judulTugas);
+
+        when(tugasService.updateTugas(tugas.getId(), tugas)).thenReturn(tugas);
+        when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
+
+        mvc.perform(put("/tugas/" + tugas.getId())
+                .header("Authorization", "Bearer " +  getJWTToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapToJson(tugas)))
+                .andExpect(status().isOk()).andExpect(content()
+                .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.judul").value(judulTugas));
+    }
+
+    @Test
+    void testControllerDeleteMatkul() throws Exception {
+        tugasService.createTugas(tugas);
+        when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
+
+        mvc.perform(delete("/tugas/" + matkul.getKodeMatkul())
+                .header("Authorization", "Bearer " +  getJWTToken())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
 
 }
