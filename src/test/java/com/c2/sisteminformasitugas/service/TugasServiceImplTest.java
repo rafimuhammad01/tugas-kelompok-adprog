@@ -61,7 +61,6 @@ public class TugasServiceImplTest {
 
         user = new User();
         user.setNpm("1234");
-        user.setAdmin(false);
         user.setEmail("test@gmail.com");
         user.setPassword("test123");
 
@@ -79,7 +78,6 @@ public class TugasServiceImplTest {
         matkul.setNama("Dummy");
 
         user = new User();
-        user.setAdmin(false);
         user.setEmail("dummy@gmail.com");
         user.setPassword("password123");
         user.setNpm("1906350788");

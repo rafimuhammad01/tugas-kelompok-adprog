@@ -56,7 +56,6 @@ class KomentarServiceImplTest {
 
         user = new User();
         user.setNpm("1234");
-        user.setAdmin(false);
         user.setEmail("test@gmail.com");
         user.setPassword("test123");
 

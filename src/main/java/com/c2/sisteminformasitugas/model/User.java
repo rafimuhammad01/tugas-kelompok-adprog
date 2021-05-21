@@ -27,19 +27,15 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "is_admin")
-    private boolean isAdmin;
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "matkul_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "kodeMatkul")
     @JsonIdentityReference(alwaysAsId = true)
     private List<Matkul> matkulList;
 
-    public User(String npm, String email, String password, boolean isAdmin) {
+    public User(String npm, String email, String password) {
         this.npm = npm;
         this.email = email;
         this.password = password;
-        this.isAdmin = isAdmin;
     }
 }

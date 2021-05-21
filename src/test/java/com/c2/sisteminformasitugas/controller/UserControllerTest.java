@@ -48,7 +48,7 @@ public class UserControllerTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        user = new User("1906350616", "ganiilhamirsyadi@gmail.com", "password", false);
+        user = new User("1906350616", "ganiilhamirsyadi@gmail.com", "password");
         userJson = "{\n" +
                 "    \"npm\": \"1906350616\",\n" +
                 "    \"email\": \"ganiilhamirsyadi@gmail.com\",\n" +
