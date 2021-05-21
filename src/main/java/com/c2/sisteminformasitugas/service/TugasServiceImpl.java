@@ -32,6 +32,7 @@ public class TugasServiceImpl implements TugasService{
 
     @Override
     public Tugas createTugas(Tugas tugas) throws IOException, InterruptedException {
+        System.out.println(tugas);
         int length = tugas.getMatkul().getSubscribers().size();
         String[] listOfEmail = new String[length];
         for (int i = 0; i < length; i++) {
