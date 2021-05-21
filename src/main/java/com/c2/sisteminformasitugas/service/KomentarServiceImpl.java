@@ -25,7 +25,7 @@ public class KomentarServiceImpl implements KomentarService {
         komentar.setAuthor(user);
         komentar.setTugas(tugas);
 
-        Timestamp now = new Timestamp(System.currentTimeMillis());
+        var now = new Timestamp(System.currentTimeMillis());
 
         // condition if deadline haven't passed
         if (tugas.getDeadline().compareTo(now) >= 0) {
@@ -36,7 +36,7 @@ public class KomentarServiceImpl implements KomentarService {
 
     @Override
     public int deleteKomentar(int id) {
-        Komentar komentar = komentarRepository.findById(id);
+        var komentar = komentarRepository.findById(id);
         if (komentar != null) {
             komentarRepository.deleteKomentarCustom(id);
             return Helper.COMMENT_DELETED;

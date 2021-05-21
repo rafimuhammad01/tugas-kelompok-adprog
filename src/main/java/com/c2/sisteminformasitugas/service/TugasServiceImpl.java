@@ -27,16 +27,15 @@ public class TugasServiceImpl implements TugasService{
 
     @Override
     public Iterable<Tugas> getListTugas(String kodeMatkul) {
-        Matkul matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
+        var matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
         return tugasRepository.findByMatkul(matkul);
     }
 
     @Override
     public Tugas createTugas(Tugas tugas) throws IOException, InterruptedException {
-        System.out.println(tugas);
         int length = tugas.getMatkul().getSubscribers().size();
-        String[] listOfEmail = new String[length];
-        for (int i = 0; i < length; i++) {
+        var listOfEmail = new String[length];
+        for (var i = 0; i < length; i++) {
             listOfEmail[i] = tugas.getMatkul().getSubscribers().get(i).getEmail();
         }
 
@@ -48,20 +47,17 @@ public class TugasServiceImpl implements TugasService{
         data.put("subject", "Ada Tugas Baru");
 
         var objectMapper = new ObjectMapper();
-        String requestBody = objectMapper
+        var requestBody = objectMapper
                 .writeValueAsString(data);
 
-        HttpClient client = HttpClient.newHttpClient();
+        var client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://situgas-email-service.herokuapp.com/email"))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody)) // add request header
                 .header("Content-Type", "application/json")
                 .build();
 
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.body());
+        client.send(request, HttpResponse.BodyHandlers.ofString());
 
         tugasRepository.save(tugas);
         return tugas;
@@ -74,7 +70,7 @@ public class TugasServiceImpl implements TugasService{
 
     @Override
     public Tugas updateTugas(int id, Tugas tugas){
-        Tugas tugasFound = tugasRepository.findById(id);
+        var tugasFound = tugasRepository.findById(id);
         tugas.setId(id);
         tugas.setKomentar(tugasFound.getKomentar());
         tugas.setMatkul(tugasFound.getMatkul());
@@ -85,7 +81,7 @@ public class TugasServiceImpl implements TugasService{
 
     @Override
     public void deleteTugas(int id) {
-        Tugas tugas = this.getTugas(id);
+        var tugas = this.getTugas(id);
         tugasRepository.delete(tugas);
     }
 }

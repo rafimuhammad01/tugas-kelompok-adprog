@@ -26,7 +26,7 @@ import static org.mockito.Mockito.lenient;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TugasServiceImplTest {
+class TugasServiceImplTest {
 
     @Mock
     private MatkulServiceImp matkulServiceImpl;
@@ -108,7 +108,6 @@ public class TugasServiceImplTest {
 
     @Test
     void TestCreateTugas() throws IOException, InterruptedException {
-        System.out.println(tugas);
         lenient().when(tugasServiceImpl.createTugas(tugas)).thenReturn(tugas);
         Tugas resultTugas = tugasServiceImpl.createTugas(tugas);
         Assertions.assertEquals(tugas.getId(), resultTugas.getId());

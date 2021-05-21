@@ -1,6 +1,6 @@
 package com.c2.sisteminformasitugas.controller;
 
-import com.c2.sisteminformasitugas.model.DTO.ListKodeMatkulDTO;
+import com.c2.sisteminformasitugas.model.dto.ListKodeMatkulDTO;
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.User;
 import com.c2.sisteminformasitugas.service.MatkulService;
@@ -28,28 +28,28 @@ public class MatkulController {
 
     @PostMapping(produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity createMatkul(@RequestBody Matkul matkul) {
+    public ResponseEntity<Matkul> createMatkul(@RequestBody Matkul matkul) {
         return ResponseEntity.ok(matkulService.createMatkul(matkul));
     }
 
     @PostMapping(path = "/subscribe", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity subscribeToMatkul(@RequestBody ListKodeMatkulDTO kodeMatkuls, HttpServletRequest request) {
-        User user = userService.convertTokenToUser(request);
+    public ResponseEntity<User> subscribeToMatkul(@RequestBody ListKodeMatkulDTO kodeMatkuls, HttpServletRequest request) {
+        var user = userService.convertTokenToUser(request);
         return ResponseEntity.ok(matkulService.subscribeToMatkul(user, kodeMatkuls));
     }
 
     @PostMapping(path = "/unsubscribe", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity unsubscribeToMatkul(@RequestBody ListKodeMatkulDTO kodeMatkuls, HttpServletRequest request) {
-        User user = userService.convertTokenToUser(request);
+    public ResponseEntity<User> unsubscribeToMatkul(@RequestBody ListKodeMatkulDTO kodeMatkuls, HttpServletRequest request) {
+        var user = userService.convertTokenToUser(request);
         return ResponseEntity.ok(matkulService.unsubscribeToMatkul(user, kodeMatkuls));
     }
 
     @GetMapping(path = "/{kodeMatkul}", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity getMatkul(@PathVariable(value = "kodeMatkul") String kodeMatkul) {
-        Matkul matkul = matkulService.getMatkul(kodeMatkul);
+    public ResponseEntity<Matkul> getMatkul(@PathVariable(value = "kodeMatkul") String kodeMatkul) {
+        var matkul = matkulService.getMatkul(kodeMatkul);
         if (matkul == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -58,7 +58,7 @@ public class MatkulController {
 
     @PutMapping(path = "/{kodeMatkul}", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity updateMatkul(@PathVariable(value = "kodeMatkul") String kodeMatkul, @RequestBody Matkul matkul) {
+    public ResponseEntity<Matkul> updateMatkul(@PathVariable(value = "kodeMatkul") String kodeMatkul, @RequestBody Matkul matkul) {
         return ResponseEntity.ok(matkulService.updateMatkul(kodeMatkul, matkul));
     }
 

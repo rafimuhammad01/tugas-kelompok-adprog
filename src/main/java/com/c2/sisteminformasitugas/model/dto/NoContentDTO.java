@@ -1,11 +1,8 @@
-package com.c2.sisteminformasitugas.model.DTO;
+package com.c2.sisteminformasitugas.model.dto;
 
-import com.c2.sisteminformasitugas.model.Komentar;
-
-public class ListKomentarDTO {
+public class NoContentDTO {
     private int status;
     private String message;
-    private Iterable<Komentar> data;
 
     public int getStatus() {
         return status;
@@ -21,13 +18,5 @@ public class ListKomentarDTO {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Iterable<Komentar> getData() {
-        return data;
-    }
-
-    public void setData(Iterable<Komentar> data) {
-        this.data = data;
     }
 }

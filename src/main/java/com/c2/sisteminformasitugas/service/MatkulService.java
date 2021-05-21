@@ -1,6 +1,6 @@
 package com.c2.sisteminformasitugas.service;
 
-import com.c2.sisteminformasitugas.model.DTO.ListKodeMatkulDTO;
+import com.c2.sisteminformasitugas.model.dto.ListKodeMatkulDTO;
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.User;
 

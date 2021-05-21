@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceImplTest {
+class UserServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
@@ -41,19 +41,19 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testServiceCreateUser() throws Exception {
+    void testServiceCreateUser() throws Exception {
         lenient().when(userService.createUser(user)).thenReturn(user);
     }
 
     @Test
-    public void testServiceGetUserByEmail() throws Exception {
+    void testServiceGetUserByEmail() throws Exception {
         lenient().when(userService.getUserByEmail("ganiilhamirsyadi@gmail.com")).thenReturn(user);
         User userFound = userService.getUserByEmail(user.getEmail());
         Assertions.assertEquals(userFound.getEmail(), user.getEmail());
     }
 
     @Test
-    public void testConvertTokenToUser() throws Exception {
+    void testConvertTokenToUser() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         String token = Jwts.builder()
                 .setSubject("ganiilhamirsyadi@gmail.com")
@@ -68,7 +68,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void testConvertTokenToUserNotFound() throws Exception {
+    void testConvertTokenToUserNotFound() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader(SecurityConstant.HEADER_STRING, SecurityConstant.TOKEN_PREFIX);
         User userFound = userService.convertTokenToUser(request);

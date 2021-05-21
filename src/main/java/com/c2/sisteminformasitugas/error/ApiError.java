@@ -1,7 +1,6 @@
 package com.c2.sisteminformasitugas.error;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

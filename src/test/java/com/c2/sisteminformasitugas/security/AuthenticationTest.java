@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthenticationTest {
+class AuthenticationTest {
     @Autowired
     MockMvc mvc;
 
@@ -65,7 +65,7 @@ public class AuthenticationTest {
 
     @WithMockUser(value = "ganiilhamirsyadi@gmail.com", password = "password")
     @Test
-    public void testLoginUnauthorized() throws Exception {
+    void testLoginUnauthorized() throws Exception {
         String jsonBody = "{\n" +
                 "    \"email\": \"ganiilhamirsyadi@gmail.com\",\n" +
                 "    \"password\": \"password2\"\n" +
@@ -82,7 +82,7 @@ public class AuthenticationTest {
     }
 
     @Test
-    public void testAttemptAuthentication() throws Exception {
+    void testAttemptAuthentication() throws Exception {
         when(jwtAuthenticationFilter.attemptAuthentication(any(), any())).thenReturn((userToken));
         lenient().when(jwtAuthenticationFilter.getAuthRequest(any())).thenReturn(userToken);
         Authentication result = jwtAuthenticationFilter.attemptAuthentication(any(), any());

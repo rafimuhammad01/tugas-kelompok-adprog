@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MatkulControllerTest {
+class MatkulControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -107,7 +107,7 @@ public class MatkulControllerTest {
     }
 
     @Test
-    public void testControllerGetNonExistMatkul() throws Exception{
+    void testControllerGetNonExistMatkul() throws Exception{
         when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
 
         mvc.perform(get("/matkul/BASDAT")

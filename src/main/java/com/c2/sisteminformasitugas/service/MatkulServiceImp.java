@@ -1,8 +1,7 @@
 package com.c2.sisteminformasitugas.service;
 
-import com.c2.sisteminformasitugas.model.DTO.ListKodeMatkulDTO;
+import com.c2.sisteminformasitugas.model.dto.ListKodeMatkulDTO;
 import com.c2.sisteminformasitugas.model.Matkul;
-import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.model.User;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import com.c2.sisteminformasitugas.repository.UserRepository;
@@ -41,7 +40,7 @@ public class MatkulServiceImp implements MatkulService {
 
     @Override
     public Matkul updateMatkul(String kodeMatkul, Matkul matkul) {
-        Matkul matkulFound = matkulRepository.findByKodeMatkul(kodeMatkul);
+        var matkulFound = matkulRepository.findByKodeMatkul(kodeMatkul);
         matkul.setKodeMatkul(kodeMatkul);
         matkul.setTugas(matkulFound.getTugas());
         matkul.setSubscribers(matkulFound.getSubscribers());
@@ -51,7 +50,7 @@ public class MatkulServiceImp implements MatkulService {
 
     @Override
     public void deleteMatkul(String kodeMatkul) {
-        Matkul matkul = this.getMatkul(kodeMatkul);
+        var matkul = this.getMatkul(kodeMatkul);
         matkulRepository.delete(matkul);
     }
 
@@ -59,7 +58,7 @@ public class MatkulServiceImp implements MatkulService {
     public User subscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
         List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
         for (String kodeMatkul:kodeMatkuls) {
-            Matkul matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
+            var matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
             if (matkul != null && !user.getMatkulList().contains(matkul)) {
                 matkul.getSubscribers().add(user);
                 matkulRepository.save(matkul);
@@ -74,7 +73,7 @@ public class MatkulServiceImp implements MatkulService {
     public User unsubscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
         List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
         for (String kodeMatkul:kodeMatkuls) {
-            Matkul matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
+            var matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
             if (matkul != null && user.getMatkulList().contains(matkul)) {
                 matkul.getSubscribers().remove(user);
                 matkulRepository.save(matkul);

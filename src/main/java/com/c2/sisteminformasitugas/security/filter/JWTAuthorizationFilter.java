@@ -39,7 +39,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String token = request.getHeader(SecurityConstant.HEADER_STRING).replace(SecurityConstant.TOKEN_PREFIX,"");
         if (!token.equals("")) {
             // parse the token.
-            Claims claims = Jwts.parserBuilder().setSigningKey(SecurityConstant.HKEY).build().parseClaimsJws(token).getBody();
+            var claims = Jwts.parserBuilder().setSigningKey(SecurityConstant.HKEY).build().parseClaimsJws(token).getBody();
             if (claims.getSubject() != null) {
                 return new UsernamePasswordAuthenticationToken(claims.getSubject(), null, new ArrayList<>());
             }

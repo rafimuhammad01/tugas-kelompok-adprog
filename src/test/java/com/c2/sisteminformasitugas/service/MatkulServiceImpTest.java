@@ -1,6 +1,6 @@
 package com.c2.sisteminformasitugas.service;
 
-import com.c2.sisteminformasitugas.model.DTO.ListKodeMatkulDTO;
+import com.c2.sisteminformasitugas.model.dto.ListKodeMatkulDTO;
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.model.User;
@@ -23,7 +23,7 @@ import java.util.Arrays;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MatkulServiceImpTest {
+class MatkulServiceImpTest {
     @Mock
     private MatkulRepository matkulRepository;
 
@@ -130,6 +130,6 @@ public class MatkulServiceImpTest {
         lenient().when(matkulRepository.findByKodeMatkul(matkul.getKodeMatkul())).thenReturn(matkul);
         User subscribedUser = matkulService.subscribeToMatkul(user, matkulDTO);
         User unsubscribedUser = matkulService.unsubscribeToMatkul(subscribedUser, matkulDTO);
-        Assertions.assertEquals(unsubscribedUser.getMatkulList().size(), 0);
+        Assertions.assertEquals(0, unsubscribedUser.getMatkulList().size());
     }
 }

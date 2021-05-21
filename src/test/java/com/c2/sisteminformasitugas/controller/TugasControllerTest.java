@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TugasControllerTest {
+class TugasControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -111,7 +111,7 @@ public class TugasControllerTest {
     }
 
     @Test
-    public void testControllerGetNonExistTugas() throws Exception{
+    void testControllerGetNonExistTugas() throws Exception{
         when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
 
         mvc.perform(get("/tugas/69")

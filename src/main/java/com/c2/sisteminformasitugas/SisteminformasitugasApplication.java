@@ -1,6 +1,5 @@
 package com.c2.sisteminformasitugas;
 
-import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import com.c2.sisteminformasitugas.security.filter.JWTAuthenticationFilter;
 import com.c2.sisteminformasitugas.security.filter.JWTAuthorizationFilter;
 import com.c2.sisteminformasitugas.security.provider.CustomAuthenticationProvider;
@@ -10,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

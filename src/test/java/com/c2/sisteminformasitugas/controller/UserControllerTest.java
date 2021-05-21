@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+class UserControllerTest {
     @Autowired
     private MockMvc mvc;
 
@@ -71,7 +71,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testControllerSignUpUser() throws Exception {
+    void testControllerSignUpUser() throws Exception {
         when(userService.createUser(user)).thenReturn(user);
         // Sign Up a User
         mvc.perform(post("/user/signup")
@@ -82,7 +82,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testControllerSignUpUserWithRegisteredEmail() throws Exception {
+    void testControllerSignUpUserWithRegisteredEmail() throws Exception {
         when(userService.createUser(user)).thenThrow(new Exception());
         // Sign Up a User
         mvc.perform(post("/user/signup")
@@ -94,7 +94,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testControllerGetUser() throws Exception {
+    void testControllerGetUser() throws Exception {
         when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
         mvc.perform(get("/user/")
                 .header("Authorization", "Bearer " + getJWTToken()))

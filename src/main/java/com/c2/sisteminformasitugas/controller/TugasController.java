@@ -35,7 +35,7 @@ public class TugasController {
     @GetMapping(path = "/{kodeTugas}", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity getTugas(@PathVariable(value = "kodeTugas") int kodeTugas) {
-        Tugas tugas = tugasService.getTugas(kodeTugas);
+        var tugas = tugasService.getTugas(kodeTugas);
         if (tugas == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

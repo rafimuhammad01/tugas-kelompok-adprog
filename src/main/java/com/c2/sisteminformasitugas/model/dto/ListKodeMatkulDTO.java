@@ -1,4 +1,4 @@
-package com.c2.sisteminformasitugas.model.DTO;
+package com.c2.sisteminformasitugas.model.dto;
 
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package com.c2.sisteminformasitugas.security.provider;
 
-import com.c2.sisteminformasitugas.model.User;
 import com.c2.sisteminformasitugas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,7 +27,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String email = (String) auth.getPrincipal();
         String password = (String) auth.getCredentials();
 
-        User user = userService.getUserByEmail(email);
+        var user = userService.getUserByEmail(email);
 
         if (user == null) throw new BadCredentialsException("User not found");
 
