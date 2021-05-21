@@ -30,8 +30,6 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -87,7 +85,6 @@ class KomentarControllerTest {
 
         user = new User();
         user.setNpm("1234");
-        user.setAdmin(false);
         user.setEmail("test@gmail.com");
         user.setPassword("test123");
 

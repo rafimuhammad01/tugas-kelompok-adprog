@@ -65,7 +65,6 @@ public class TugasServiceImplTest {
 
         user = new User();
         user.setNpm("1234");
-        user.setAdmin(false);
         user.setEmail("test@gmail.com");
         user.setPassword("test123");
 
@@ -77,7 +76,6 @@ public class TugasServiceImplTest {
         matkul.setSubscribers(listOfSubscriber);
 
         user = new User();
-        user.setAdmin(false);
         user.setEmail("dummy@gmail.com");
         user.setPassword("password123");
         user.setNpm("1906350788");
@@ -157,7 +155,7 @@ public class TugasServiceImplTest {
 
         tugasServiceImpl.createTugas(tugas);
         tugasServiceImpl.deleteTugas(tugas.getId());
-        Assertions.assertEquals(null, tugasServiceImpl.getTugas(tugas.getId()));
+        assertNull(tugasServiceImpl.getTugas(tugas.getId()));
     }
 
 }

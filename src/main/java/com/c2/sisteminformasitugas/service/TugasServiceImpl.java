@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -77,6 +78,7 @@ public class TugasServiceImpl implements TugasService{
         tugas.setId(id);
         tugas.setKomentar(tugasFound.getKomentar());
         tugas.setMatkul(tugasFound.getMatkul());
+        tugas.setKomentar(new ArrayList<>());
         tugasRepository.save(tugas);
         return tugas;
     }

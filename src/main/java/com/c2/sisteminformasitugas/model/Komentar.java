@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="komentar")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Komentar {
     @Id
