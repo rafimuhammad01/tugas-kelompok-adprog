@@ -16,6 +16,4 @@ public interface MatkulService {
     void deleteMatkul(String kodeMatkul);
 
     User subscribeToMatkul(User user, ListKodeMatkulDTO kodeMatkuls);
-
-    User unsubscribeToMatkul(User user, ListKodeMatkulDTO kodeMatkuls);
 }

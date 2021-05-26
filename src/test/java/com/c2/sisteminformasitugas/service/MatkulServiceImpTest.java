@@ -122,14 +122,4 @@ class MatkulServiceImpTest {
         Assertions.assertEquals(resultUser.getMatkulList().get(0).getNama(), matkul.getNama());
     }
 
-    @Test
-    void testUnsubscribeToMatkul() {
-        ListKodeMatkulDTO matkulDTO = new ListKodeMatkulDTO();
-        String[] kodeMatkuls = {matkul.getKodeMatkul()};
-        matkulDTO.setKodeMatkuls(Arrays.asList(kodeMatkuls));
-        lenient().when(matkulRepository.findByKodeMatkul(matkul.getKodeMatkul())).thenReturn(matkul);
-        User subscribedUser = matkulService.subscribeToMatkul(user, matkulDTO);
-        User unsubscribedUser = matkulService.unsubscribeToMatkul(subscribedUser, matkulDTO);
-        Assertions.assertEquals(0, unsubscribedUser.getMatkulList().size());
-    }
 }

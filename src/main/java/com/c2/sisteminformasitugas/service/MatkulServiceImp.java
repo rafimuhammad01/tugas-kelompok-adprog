@@ -57,6 +57,12 @@ public class MatkulServiceImp implements MatkulService {
     @Override
     public User subscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
         List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
+        for (Matkul matkul:user.getMatkulList()) {
+            matkul.getSubscribers().remove(user);
+            matkulRepository.save(matkul);
+            user.getMatkulList().remove(matkul);
+            userRepository.save(user);
+        }
         for (String kodeMatkul:kodeMatkuls) {
             var matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
             if (matkul != null && !user.getMatkulList().contains(matkul)) {
@@ -69,18 +75,18 @@ public class MatkulServiceImp implements MatkulService {
         return user;
     }
 
-    @Override
-    public User unsubscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
-        List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
-        for (String kodeMatkul:kodeMatkuls) {
-            var matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
-            if (matkul != null && user.getMatkulList().contains(matkul)) {
-                matkul.getSubscribers().remove(user);
-                matkulRepository.save(matkul);
-                user.getMatkulList().remove(matkul);
-                userRepository.save(user);
-            }
-        }
-        return user;
-    }
+//    @Override
+//    public User unsubscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
+//        List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
+//        for (String kodeMatkul:kodeMatkuls) {
+//            var matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
+//            if (matkul != null && user.getMatkulList().contains(matkul)) {
+//                matkul.getSubscribers().remove(user);
+//                matkulRepository.save(matkul);
+//                user.getMatkulList().remove(matkul);
+//                userRepository.save(user);
+//            }
+//        }
+//        return user;
+//    }
 }
