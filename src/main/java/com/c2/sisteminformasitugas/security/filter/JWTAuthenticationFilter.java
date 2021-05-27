@@ -51,6 +51,8 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
                 .signWith(SecurityConstant.HKEY)
                 .compact();
 
+        res.addHeader("Access-Control-Expose-Headers", "*");
+        res.addHeader("Content-Type", "text/plain");
         res.getWriter().write(token);
         res.getWriter().flush();
     }

@@ -6,19 +6,18 @@ import com.c2.sisteminformasitugas.security.provider.CustomAuthenticationProvide
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @SpringBootApplication
 public class SisteminformasitugasApplication {
@@ -35,14 +34,13 @@ public class SisteminformasitugasApplication {
 		@Autowired
 		private CustomAuthenticationProvider authProvider;
 
-
-
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.cors().and().csrf().disable()
 					.authorizeRequests()
-					.antMatchers(HttpMethod.POST, "/user/**").permitAll()
-					.anyRequest().authenticated()
+					.antMatchers("/user/**").permitAll()
+					.anyRequest()
+					.authenticated()
 					.and()
 					.addFilterBefore(new JWTAuthenticationFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
 					.addFilter(new JWTAuthorizationFilter(authenticationManager()))
@@ -54,15 +52,13 @@ public class SisteminformasitugasApplication {
 		public void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.authenticationProvider(authProvider);
 		}
-	}
 
-	@Configuration
-	@EnableWebMvc
-	public class WebConfig implements WebMvcConfigurer {
+		@Bean
+		CorsConfigurationSource corsConfigurationSource() {
+			final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+			source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 
-		@Override
-		public void addCorsMappings(CorsRegistry registry) {
-			registry.addMapping("/**");
+			return source;
 		}
 	}
 }

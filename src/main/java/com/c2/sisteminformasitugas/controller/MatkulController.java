@@ -39,13 +39,6 @@ public class MatkulController {
         return ResponseEntity.ok(matkulService.subscribeToMatkul(user, kodeMatkuls));
     }
 
-    @PostMapping(path = "/unsubscribe", produces = {"application/json"})
-    @ResponseBody
-    public ResponseEntity<User> unsubscribeToMatkul(@RequestBody ListKodeMatkulDTO kodeMatkuls, HttpServletRequest request) {
-        var user = userService.convertTokenToUser(request);
-        return ResponseEntity.ok(matkulService.unsubscribeToMatkul(user, kodeMatkuls));
-    }
-
     @GetMapping(path = "/{kodeMatkul}", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<Matkul> getMatkul(@PathVariable(value = "kodeMatkul") String kodeMatkul) {
