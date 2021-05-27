@@ -3,6 +3,7 @@ package com.c2.sisteminformasitugas.service;
 
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
+import com.c2.sisteminformasitugas.model.User;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
 import com.c2.sisteminformasitugas.repository.TugasRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +17,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -83,5 +85,14 @@ public class TugasServiceImpl implements TugasService{
     public void deleteTugas(int id) {
         var tugas = this.getTugas(id);
         tugasRepository.delete(tugas);
+    }
+
+    @Override
+    public List<Tugas> getAllTugasByUser(User user) {
+        List<Tugas> listTugas = new ArrayList<>();
+        for (Matkul matkul:user.getMatkulList()) {
+            listTugas.addAll(matkul.getTugas());
+        }
+        return listTugas;
     }
 }

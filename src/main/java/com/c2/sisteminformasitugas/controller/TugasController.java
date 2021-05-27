@@ -1,13 +1,17 @@
 package com.c2.sisteminformasitugas.controller;
 
+import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
+import com.c2.sisteminformasitugas.model.User;
 import com.c2.sisteminformasitugas.service.MatkulService;
 import com.c2.sisteminformasitugas.service.TugasService;
+import com.c2.sisteminformasitugas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
@@ -17,7 +21,17 @@ public class TugasController {
     private TugasService tugasService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MatkulService matkulService;
+
+    @GetMapping(produces = {"application/json"})
+    @ResponseBody
+    public ResponseEntity getAllTugas(HttpServletRequest request) {
+        User user = userService.convertTokenToUser(request);
+        return ResponseEntity.ok(tugasService.getAllTugasByUser(user));
+    }
 
     @GetMapping(path = "matkul/{kodeMatkul}", produces = {"application/json"})
     @ResponseBody

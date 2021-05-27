@@ -30,8 +30,7 @@ public class Tugas {
     @Column(name = "deadline", nullable = false)
     private Timestamp deadline;
 
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "kodeMatkul")
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "kodeMatkul")
