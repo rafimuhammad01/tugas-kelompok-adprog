@@ -5,6 +5,7 @@ import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.model.User;
 import com.c2.sisteminformasitugas.repository.MatkulRepository;
+import com.c2.sisteminformasitugas.repository.UserRepository;
 import com.c2.sisteminformasitugas.util.Helper;
 import com.c2.sisteminformasitugas.repository.KomentarRepository;
 import com.c2.sisteminformasitugas.repository.TugasRepository;
@@ -50,6 +51,9 @@ class TugasServiceImplTest {
     @Mock
     private KomentarRepository komentarRepository;
 
+    @Mock
+    private UserRepository userRepository;
+
     @InjectMocks
     private TugasServiceImpl tugasServiceImpl;
 
@@ -62,6 +66,8 @@ class TugasServiceImplTest {
     public void setUp() {
 
         List<User> listOfSubscriber = new ArrayList<>();
+        List<Matkul> listOfMatkuls = new ArrayList<>();
+        List<Tugas> listOfTugas = new ArrayList<>();
 
         user = new User();
         user.setNpm("1234");
@@ -75,10 +81,14 @@ class TugasServiceImplTest {
         matkul.setNama("Dummy");
         matkul.setSubscribers(listOfSubscriber);
 
+        listOfMatkuls.add(matkul);
+
         user = new User();
         user.setEmail("dummy@gmail.com");
         user.setPassword("password123");
         user.setNpm("1906350788");
+        user.setMatkulList(listOfMatkuls);
+        userRepository.save(user);
 
         tugas = new Tugas();
         tugas.setId(1);
@@ -87,6 +97,12 @@ class TugasServiceImplTest {
         tugas.setDeskripsi("Dummy");
         tugas.setLink("Dummy");
         tugas.setMatkul(matkul);
+
+        listOfTugas.add(tugas);
+
+        matkul.setTugas(listOfTugas);
+        matkulRepository.save(matkul);
+
         tugasRepository.save(tugas);
 
 
@@ -156,5 +172,16 @@ class TugasServiceImplTest {
         tugasServiceImpl.deleteTugas(tugas.getId());
         assertNull(tugasServiceImpl.getTugas(tugas.getId()));
     }
+
+    @Test
+    void TestGetAllTugasByUser() {
+        List<Tugas> listTugas = new ArrayList<>();
+        listTugas.add(tugas);
+        lenient().when(tugasServiceImpl.getAllTugasByUser(user)).thenReturn(listTugas);
+        List<Tugas> listTugasResult = tugasServiceImpl.getAllTugasByUser(user);
+        Assertions.assertEquals(listTugas.get(0).getJudul(), listTugasResult.get(0).getJudul());
+        Assertions.assertEquals(listTugas.size(), listTugasResult.size());
+    }
+
 
 }
