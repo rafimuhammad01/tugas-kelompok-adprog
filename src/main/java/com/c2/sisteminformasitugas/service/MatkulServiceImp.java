@@ -57,12 +57,14 @@ public class MatkulServiceImp implements MatkulService {
     @Override
     public User subscribeToMatkul(User user, ListKodeMatkulDTO listKodeMatkulDTO) {
         List<String> kodeMatkuls = listKodeMatkulDTO.getKodeMatkuls();
+        // Resetting the subscribed matkuls
         for (Matkul matkul:user.getMatkulList()) {
             matkul.getSubscribers().remove(user);
             matkulRepository.save(matkul);
-            user.getMatkulList().remove(matkul);
-            userRepository.save(user);
         }
+        // Resetting the subscribed matkuls
+        user.getMatkulList().removeAll(user.getMatkulList());
+        userRepository.save(user);
         for (String kodeMatkul:kodeMatkuls) {
             var matkul = matkulRepository.findByKodeMatkul(kodeMatkul);
             if (matkul != null && !user.getMatkulList().contains(matkul)) {
