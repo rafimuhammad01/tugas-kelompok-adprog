@@ -3,6 +3,7 @@ package com.c2.sisteminformasitugas.controller;
 import com.c2.sisteminformasitugas.model.Matkul;
 import com.c2.sisteminformasitugas.model.Tugas;
 import com.c2.sisteminformasitugas.model.User;
+import com.c2.sisteminformasitugas.model.dto.ListKodeMatkulDTO;
 import com.c2.sisteminformasitugas.security.constant.SecurityConstant;
 import com.c2.sisteminformasitugas.service.MatkulServiceImp;
 import com.c2.sisteminformasitugas.service.TugasServiceImpl;
@@ -21,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 import static org.mockito.Mockito.when;
@@ -146,6 +148,26 @@ class MatkulControllerTest {
                 .andExpect(status().isOk()).andExpect(content()
                 .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.nama").value(namaMatkul));
+    }
+
+    @Test
+    void testControllerSubscribeToMatkul() throws Exception {
+        matkulService.createMatkul(matkul);
+
+        String namaMatkul = "ADV125YIHA";
+        matkul.setNama(namaMatkul);
+
+        ListKodeMatkulDTO listKode = new ListKodeMatkulDTO();
+        listKode.setKodeMatkuls(Collections.singletonList(matkul.getKodeMatkul()));
+        user.setMatkulList(Collections.singletonList(matkul));
+        when(matkulService.subscribeToMatkul(user,listKode)).thenReturn(user);
+        when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
+
+        mvc.perform(post("/matkul/subscribe")
+                .header("Authorization", "Bearer " +  getJWTToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapToJson(listKode)))
+                .andExpect(status().isOk());
     }
 
     @Test

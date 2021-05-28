@@ -118,6 +118,7 @@ class MatkulServiceImpTest {
         String[] kodeMatkuls = {matkul.getKodeMatkul()};
         matkulDTO.setKodeMatkuls(Arrays.asList(kodeMatkuls));
         lenient().when(matkulRepository.findByKodeMatkul(matkul.getKodeMatkul())).thenReturn(matkul);
+        matkulService.subscribeToMatkul(user, matkulDTO);
         User resultUser = matkulService.subscribeToMatkul(user, matkulDTO);
         Assertions.assertEquals(resultUser.getMatkulList().get(0).getNama(), matkul.getNama());
     }

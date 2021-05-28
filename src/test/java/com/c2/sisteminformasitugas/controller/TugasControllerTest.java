@@ -21,7 +21,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -122,12 +124,24 @@ class TugasControllerTest {
 
     @Test
     void testControllerGetListTugas() throws Exception {
-        Iterable<Tugas> listMatkul = Arrays.asList(tugas);
+        Iterable<Tugas> listTugas = Arrays.asList(tugas);
         when(tugasService.getTugas(tugas.getId())).thenReturn(tugas);
-        when(tugasService.getListTugas(matkul.getKodeMatkul())).thenReturn(listMatkul);
+        when(tugasService.getListTugas(matkul.getKodeMatkul())).thenReturn(listTugas);
         when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
         tugas.setMatkul(matkul);
         mvc.perform(get("/tugas/matkul/" + matkul.getKodeMatkul())
+                .header("Authorization", "Bearer " +  getJWTToken())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testControllerGetAllTugasByUser() throws Exception {
+        List<Tugas> listMatkul = Collections.singletonList(tugas);
+        when(tugasService.getAllTugasByUser(user)).thenReturn(listMatkul);
+        when(userService.convertTokenToUser(ArgumentMatchers.any())).thenReturn(user);
+        tugas.setMatkul(matkul);
+        mvc.perform(get("/tugas/")
                 .header("Authorization", "Bearer " +  getJWTToken())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
